@@ -7,7 +7,7 @@
 #'
 #' @return a dataframe with five columns: TagID, first_det (first detection of tag), first_stn (first station), last_det (last detection time at final station), last_stn (station where last arrival was recorded).
 #' @author Myfanwy Johnston
-#'
+#'@export
 #'
 first_last <- function(detdf, tagidcol = "TagID", datetimecol = "DateTimeUTC", stationcol = "Station"){
 

@@ -14,16 +14,16 @@ tag_tales(detdf, TagID_col, Station_col, Datetime_col = "DateTimeUTC",
 
 \item{Station_col}{column containing unique station codes or names}
 
-\item{Datetime_col}{column containing date and time of detection, in POSIXct format ("%Y-%M-%D %H:%M:%S")}
+\item{Datetime_col}{column containing date and time of detection, in POSIXct format YYYY-MM-DD HH:MM:SS}
 
-\item{Threshold}{desired time threshold between station visits, in seconds.  See details
-
-\details{
-The time threshold allows you to delineate the period of time that detections can be separated from each other at a receiver and still be considered part of the same "stay" at that receiver.  The default is 1 hour (`60*60`).  If you set Threhold = `60*60*2`, that means that after a fish arrives at a receiver, all detections that occur at that receiver within 2 hours of the first arrival are considered part of the same "stay" at that receiver.}}
+\item{Threshold}{desired time threshold between station visits, in seconds.  See details.}
 }
 \value{
 dataframe with fishpaths for each tagID
 }
 \description{
 Contstruct coherant individual movement paths from tag detection history dataframe
+}
+\details{
+The time threshold allows you to delineate the period of time that detections can be separated from each other at a receiver and still be considered part of the same "stay" at that receiver.  The default is 1 hour "(`60*60`)".  If you set Threshold = "`60*60*2`", that means that after a fish arrives at a receiver, all detections that occur at that receiver within 2 hours of the first arrival are considered part of the same "stay" at that receiver.
 }
