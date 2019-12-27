@@ -15,7 +15,7 @@ first_last <- function(detdf, tagidcol = "TagID", datetimecol = "DateTimeUTC", s
   detdf$datetimecol = detdf[[datetimecol]]
   detdf$TagID = detdf[[tagidcol]]
 
-   do.call(rbind, lapply(split(detdf, detdf[detdf[[tagidcol]], ]), function(x) {
+   do.call(rbind, by(detdf, detdf[detdf[[tagidcol]], ], function(x) {
 
      x = x[order(x$datetimecol), ]
 
