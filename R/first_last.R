@@ -1,3 +1,27 @@
+first_last_1fish <- function(x, 
+                             dtc2 = datetimecol, 
+                             tagc = tagidcol,
+                             stnc2 = stationcol) {
+
+     x = x[order(x[[dtc2]]), ] # order by DateTime
+
+     return(data.frame(
+
+       TagID = as.numeric(unique(x[[tagc]])),
+
+       first_det = min(x[[dtc2]]),
+
+       first_stn = x[[stnc2]][x[[dtc2]] == min(x[[dtc2]])],
+
+       last_det = max(x[[dtc2]]),
+
+       last_stn = x[[stnc2]][x[[dtc2]] == max(x[[dtc2]])],
+
+       stringsAsFactors = FALSE)
+     )
+}
+
+
 #' Get first (minimum) and last (maximum) detection and stations of a tagged animal
 #'
 #' @param detdf A detections dataframe
@@ -9,31 +33,11 @@
 #' @author Myfanwy Johnston
 #'@export
 #'
-first_last <- function(detdf, tagidcol = "TagID", datetimecol = "DateTimeUTC", stationcol = "Station"){
+first_last <- function(detdf, tagidcol = "TagID", datetimecol = "DateTimeUTC", stationcol = "Station") {
 
-  detdf$Station = detdf[[stationcol]]
-  detdf$datetimecol = detdf[[datetimecol]]
-  detdf$TagID = detdf[[tagidcol]]
-
-do.call(rbind, by(detdf, detdf[detdf[[tagidcol]], ], function(x) {
-
-
-     x = x[order(x$datetimecol), ]
-
-     return(data.frame(
-
-       TagID = as.numeric(unique(x$TagID)),
-
-       first_det = min(x$datetimecol),
-
-       first_stn = x$Station[x$datetimecol == min(x$datetimecol)],
-
-       last_det = max(x$datetimecol),
-
-       last_stn = x$Station[x$datetimecol == max(x$datetimecol)],
-
-       stringsAsFactors = FALSE)
-     )
-   }
-   ))
- }
+  f1 <- split(detdf, detdf[[tagidcol]])
+  tmp <- lapply(f1, first_last_1fish, dtc2 = datetimecol, stnc2 = stationcol)
+  fldf = do.call(rbind, tmp)
+                 
+  return(fldf) }
+                 
