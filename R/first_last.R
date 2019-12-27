@@ -36,7 +36,7 @@ first_last_1fish <- function(x,
 first_last <- function(detdf, tagidcol = "TagID", datetimecol = "DateTimeUTC", stationcol = "Station") {
 
   f1 <- split(detdf, detdf[[tagidcol]])
-  tmp <- lapply(f1, first_last_1fish, dtc2 = datetimecol, stnc2 = stationcol)
+  tmp <- lapply(f1, first_last_1fish, dtc2 = datetimecol, stnc2 = stationcol, tagc = tagidcol)
   fldf = do.call(rbind, tmp)
                  
   return(fldf) }
