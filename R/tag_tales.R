@@ -38,6 +38,11 @@ splitFishStationVisits =
 
 tag_tales <- function(detdf, TagID_col, Station_col, Datetime_col="DateTimeUTC", Threshold = 60*60) {
 
+    if(is.character(TagID_col) && length(TagID_col) != nrow(detdf))
+        TagID_col = detdf[[TagID_col]]
+    if(is.character(Station_col) && length(Station_col) != nrow(detdf))
+        Station_col = detdf[[Station_col]]
+    
   f1 <- split(detdf, list(TagID_col, Station_col))
   f1 <- f1[ sapply(f1, nrow) > 0 ]
   tmp = lapply(f1, splitFishStationVisits, dtc2 = Datetime_col, TimeThreshold = Threshold)
