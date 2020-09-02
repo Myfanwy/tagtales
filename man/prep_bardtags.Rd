@@ -4,8 +4,13 @@
 \alias{prep_bardtags}
 \title{format TagIDs for BARD query}
 \usage{
-prep_bardtags(tagids, df = alltags, tagVar = "TagID",
-  codeVar = "CodeSpace", freq = "A69")
+prep_bardtags(
+  tagids,
+  df = alltags,
+  tagVar = "TagID",
+  codeVar = "CodeSpace",
+  freq = "A69"
+)
 }
 \arguments{
 \item{tagids}{a vector of numeric TagIDs}

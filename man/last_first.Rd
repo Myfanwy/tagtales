@@ -4,8 +4,12 @@
 \alias{last_first}
 \title{Find a tag's first detection at its last location}
 \usage{
-last_first(detdf, tagidcol = "TagID", datetimecol = "DateTimeUTC",
-  stationcol = "Station")
+last_first(
+  detdf,
+  tagidcol = "TagID",
+  datetimecol = "DateTimeUTC",
+  stationcol = "Station"
+)
 }
 \arguments{
 \item{detdf}{a dataframe of detections for multiple tagged animals}

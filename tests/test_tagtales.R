@@ -8,14 +8,6 @@ b = tag_tales(tag_tale_test_df, tag_tale_test_df$TagID, tag_tale_test_df$Grouped
 
 stopifnot(all.equal(a,b))
 
-stopifnot(nrow(a) == 5)
+stopifnot(nrow(a) == 72)
 
-if(FALSE){
-detdf = tag_tale_test_df
 
-aa = replicate(100, system.time({split(detdf, list(detdf$TagID, detdf$GroupedStn))}))
-bb = replicate(100, system.time({split(detdf, paste(detdf$TagID, detdf$GroupedStn))}))
-
-summary(t(aa))
-summary(t(bb))
-}
