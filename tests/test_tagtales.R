@@ -10,6 +10,7 @@ stopifnot(all.equal(a,b))
 
 stopifnot(nrow(a) == 5)
 
+if(FALSE){
 detdf = tag_tale_test_df
 
 aa = replicate(100, system.time({split(detdf, list(detdf$TagID, detdf$GroupedStn))}))
@@ -17,3 +18,4 @@ bb = replicate(100, system.time({split(detdf, paste(detdf$TagID, detdf$GroupedSt
 
 summary(t(aa))
 summary(t(bb))
+}
