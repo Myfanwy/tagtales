@@ -33,8 +33,9 @@ a data frame of BARD detections; note that these detections are in a summarized 
 Execute a BARD query (http://cftc.metro.ucdavis.edu/biotelemetry-autonomous-real-time-database/fishtrack)
 }
 \examples{
+\dontrun{
 bard_query(tagIDS = bard_tags(c(2841, 2842)), curlH = getCurlHandle(useragent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36", followlocation = TRUE) )
-
+}
 }
 \author{
 Matthew Espe
