@@ -46,7 +46,8 @@ tag_tales <- function(detdf, TagID_col, Station_col, Datetime_col="DateTimeUTC",
   f1 <- split(detdf, list(TagID_col, Station_col))
   f1 <- f1[ sapply(f1, nrow) > 0 ]
   tmp = lapply(f1, splitFishStationVisits, dtc2 = Datetime_col, TimeThreshold = Threshold)
-  tales = do.call(rbind, tmp)
+  do.call(rbind, tmp)
+   
 }
 
 
