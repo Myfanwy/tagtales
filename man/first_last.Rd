@@ -4,8 +4,12 @@
 \alias{first_last}
 \title{Get first (minimum) and last (maximum) detection and stations of a tagged animal}
 \usage{
-first_last(detdf, tagidcol = "TagID", datetimecol = "DateTimeUTC",
-  stationcol = "Station")
+first_last(
+  detdf,
+  tagidcol = "TagID",
+  datetimecol = "DateTimeUTC",
+  stationcol = "Station"
+)
 }
 \arguments{
 \item{detdf}{A detections dataframe}

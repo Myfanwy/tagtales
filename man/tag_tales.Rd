@@ -4,8 +4,13 @@
 \alias{tag_tales}
 \title{Contstruct coherant individual movement paths from tag detection history dataframe}
 \usage{
-tag_tales(detdf, TagID_col, Station_col, Datetime_col = "DateTimeUTC",
-  Threshold = 60 * 60)
+tag_tales(
+  detdf,
+  TagID_col,
+  Station_col,
+  Datetime_col = "DateTimeUTC",
+  Threshold = 60 * 60
+)
 }
 \arguments{
 \item{detdf}{a dataframe of detections}

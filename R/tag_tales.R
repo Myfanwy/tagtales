@@ -11,11 +11,24 @@ redRowFun =
   }
 
 splitFishStationVisits =
-  function(d, TimeThreshold = Threshold, rowFunc = redRowFun, dtc2 = Datetime_col)
-  {
-    d = d[order(d[[dtc2]]), ] #order dataframe by DateTimeUTC
+    function(d, Station_col,
+             TimeThreshold = Threshold,
+             rowFunc = redRowFun,
+             dtc2 = Datetime_col)
+{
+    j = order(d[[dtc2]])
+    d = d[ j , ] #order dataframe by DateTimeUTC
+
+    ## index of continuous stations
+    rr = rle(Station_col[j])
+    i = rep(seq(along = rr$lengths), times = rr$lengths)
+
+    ## index of continuous times
     g = cumsum( c(0, diff(d[[dtc2]])) > TimeThreshold )
-    ans = by(d, g, rowFunc, dtc1 = dtc2) # apply redRowFun by the grouping variable g to the dataframe
+
+    ## index of both conditions
+    k = paste(i, g)
+    ans = by(d, k, rowFunc, dtc1 = dtc2) # apply redRowFun by the grouping variable g to the dataframe
     do.call(rbind, ans) # bind that into a dataframe
   }
 
@@ -36,12 +49,19 @@ splitFishStationVisits =
 #' @export
 #'
 
-tag_tales <- function(detdf, TagID_col, Station_col, Datetime_col="DateTimeUTC", Threshold = 60*60) {
+tag_tales <- function(detdf, TagID_col, Station_col,
+                      Datetime_col="DateTimeUTC", Threshold = 60*60) {
 
-  f1 <- split(detdf, list(TagID_col, Station_col))
+    if(is.character(TagID_col) && length(TagID_col) != nrow(detdf))
+        TagID_col = detdf[[TagID_col]]
+    if(is.character(Station_col) && length(Station_col) != nrow(detdf))
+        Station_col = detdf[[Station_col]]
+    
+    f1 <- split(detdf, TagID_col)
+    
   f1 <- f1[ sapply(f1, nrow) > 0 ]
-  tmp = lapply(f1, splitFishStationVisits, dtc2 = Datetime_col, TimeThreshold = Threshold)
-  tales = do.call(rbind, tmp)
+  tmp = lapply(f1, splitFishStationVisits, Station_col = Station_col, dtc2 = Datetime_col, TimeThreshold = Threshold)
+  do.call(rbind, tmp)
+   
 }
-
 
