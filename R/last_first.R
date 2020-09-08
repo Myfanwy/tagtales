@@ -31,10 +31,10 @@ lastfirst_1fish <- function(x, tidc2, dtc2, stnc2) {
   x = x[order(x[[dtc2]]), ] # order detdf by datetime
 
   # First check to see if a fish has only one station associated with it:
-  if(length(unique(x[[stnc2]] == 1))) {
+  if(length(unique(x[[stnc2]])) == 1) {
 
     first_det_row = x[x[[dtc2]] == min(x[[dtc2]]), ] #  pull first det
-  acting_last_det_row = x[x[[dtc2]] == max(x[[dtc2]]), ] # & last det at last station
+    acting_last_det_row = x[x[[dtc2]] == max(x[[dtc2]]), ] # & last det at last station
 
   return(data.frame(
 
@@ -52,12 +52,12 @@ lastfirst_1fish <- function(x, tidc2, dtc2, stnc2) {
 } else {
 
   x$rleidcol = data.table::rleid(x[[stnc2]]) # assign visit numbers
-  first_det_row = x[x[[dtc2]] == min(x[[dtc2]]), ] # pull first det
-  intermed_rows = x[x$rleidcol == max(x$rleidcol), ] # pull dets at max stations
+  first_det_row = x[x[[dtc2]] == min(x[[dtc2]]), ] # pull first det row
+  intermed_rows = x[x$rleidcol == max(x$rleidcol), ] # pull all rows at max station
 
-  if(length(unique(intermed_rows[[stnc2]] > 1))) print("FYI - one or more of your tags has multiple simultaneous detections at the final location")
+  if(length(unique(intermed_rows[[stnc2]])) > 1) print("FYI - one or more of your tags has multiple simultaneous detections at the final location")
 
-  intermed_rows = intermed_row[!duplicated(intermed_row[[dtc2]])] # filter out simultaneous dets
+  intermed_rows = intermed_rows[!duplicated(intermed_rows[[dtc2]]), ] # filter out simultaneous dets
 
   # pull first detection at last station:
 acting_last_det_row =
