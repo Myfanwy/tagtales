@@ -33,7 +33,7 @@ first_last_1fish <- function(x,
 
      return(data.frame(
 
-       TagID = as.numeric(unique(x[[tagc]])),
+       TagID = unique(x[[tagc]]),
 
        first_det = min(x[[dtc2]]),
 
