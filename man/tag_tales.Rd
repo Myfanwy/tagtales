@@ -9,7 +9,8 @@ tag_tales(
   TagID_col,
   Station_col,
   Datetime_col = "DateTimeUTC",
-  Threshold = 60 * 60
+  Threshold = 60 * 60,
+  allow_overlap = TRUE
 )
 }
 \arguments{
@@ -19,9 +20,14 @@ tag_tales(
 
 \item{Station_col}{column containing unique station codes or names}
 
-\item{Datetime_col}{column containing date and time of detection, in POSIXct format YYYY-MM-DD HH:MM:SS}
+\item{Datetime_col}{column containing date and time of detection,
+in POSIXct format YYYY-MM-DD HH:MM:SS}
 
-\item{Threshold}{desired time threshold between station visits, in seconds.  See details.}
+\item{Threshold}{desired time threshold between station visits, in
+seconds.  See details.}
+
+\item{allow_overlap}{logical, if TRUE the fish paths are allowed to
+overlap so long as the threshold has not been exceeded}
 }
 \value{
 dataframe with fishpaths for each tagID
@@ -30,5 +36,12 @@ dataframe with fishpaths for each tagID
 Contstruct coherant individual movement paths from tag detection history dataframe
 }
 \details{
-The time threshold allows you to delineate the period of time that detections can be separated from each other at a receiver and still be considered part of the same "stay" at that receiver.  The default is 1 hour "(`60*60`)".  If you set Threshold = "`60*60*2`", that means that after a fish arrives at a receiver, all detections that occur at that receiver within 2 hours of the first arrival are considered part of the same "stay" at that receiver.
+The time threshold allows you to delineate the period of
+    time that detections can be separated from each other at a
+    receiver and still be considered part of the same "stay" at
+    that receiver.  The default is 1 hour "(`60*60`)".  If you set
+    Threshold = "`60*60*2`", that means that after a fish arrives
+    at a receiver, all detections that occur at that receiver
+    within 2 hours of the first arrival are considered part of the
+    same "stay" at that receiver.
 }
